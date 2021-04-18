@@ -7,11 +7,11 @@ public class User {
 	private String id;
 	
 	private String nickname;
-	private String characterID;
+	private int characterID;
 	
 	public User() {}
 	
-	public User(String nickname, String characterID) {
+	public User(String nickname, int characterID) {
 		this.nickname = nickname;
 		this.characterID = characterID;
 	}
@@ -33,11 +33,11 @@ public class User {
 		this.nickname = nickname;
 	}
 
-	public String getCharacterID() {
+	public int getCharacterID() {
 		return characterID;
 	}
 
-	public void setCharacterID(String characterID) {
+	public void setCharacterID(int characterID) {
 		this.characterID = characterID;
 	}
 

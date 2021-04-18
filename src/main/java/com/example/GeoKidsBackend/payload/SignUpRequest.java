@@ -8,7 +8,7 @@ public class SignUpRequest {
 	private String nickname;
 	
 	@NotBlank
-	private String characterID;
+	private int characterID;
 
 	public String getNickname() {
 		return nickname;
@@ -18,11 +18,11 @@ public class SignUpRequest {
 		this.nickname = nickname;
 	}
 
-	public String getCharacterID() {
+	public int getCharacterID() {
 		return characterID;
 	}
 
-	public void setCharacterID(String characterID) {
+	public void setCharacterID(int characterID) {
 		this.characterID = characterID;
 	}
 	

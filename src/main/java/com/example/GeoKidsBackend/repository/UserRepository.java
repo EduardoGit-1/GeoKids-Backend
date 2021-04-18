@@ -9,4 +9,5 @@ import com.example.GeoKidsBackend.model.User;
 @Repository
 public interface UserRepository extends MongoRepository<User, String> {
 	Optional<User> findById(String id);
+	Boolean existsByNickname(String nickname);
 }
