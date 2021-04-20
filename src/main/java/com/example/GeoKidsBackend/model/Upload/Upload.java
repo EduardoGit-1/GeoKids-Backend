@@ -20,6 +20,8 @@ public class Upload {
 	
 	private ArrayList<Image> images = new ArrayList<>();
 	private ArrayList<String> videos = new ArrayList<>();
+	private ArrayList<String> audios = new ArrayList<>(); 
+	private ArrayList<String> texts = new ArrayList<>();
 	
 	private Upload() {}
 	
@@ -58,6 +60,24 @@ public class Upload {
 	public void setVideos(ArrayList<String> videos) {
 		this.videos = videos;
 	}
+
+	public ArrayList<String> getAudios() {
+		return audios;
+	}
+
+	public void setAudios(ArrayList<String> audios) {
+		this.audios = audios;
+	}
+
+	public ArrayList<String> getTexts() {
+		return texts;
+	}
+
+	public void setTexts(ArrayList<String> texts) {
+		this.texts = texts;
+	}
+	
+	
 		
 
 }

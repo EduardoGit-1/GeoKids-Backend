@@ -13,8 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.GeoKidsBackend.model.User;
 import com.example.GeoKidsBackend.model.Tracking.Destination;
+import com.example.GeoKidsBackend.model.Upload.Audio;
 import com.example.GeoKidsBackend.model.Upload.Upload;
-import com.example.GeoKidsBackend.model.Upload.Video;
 import com.example.GeoKidsBackend.repository.UploadRepository;
 import com.example.GeoKidsBackend.repository.UserRepository;
 import com.mongodb.BasicDBObject;
@@ -34,7 +34,7 @@ public class AudioService {
 	
 	@Autowired
 	private UserRepository userRepository;
-    public Upload addVideo(Destination destination, String userID, MultipartFile file) throws IOException { 
+    public String addAudio(Destination destination, String userID, MultipartFile file) throws IOException { 
         DBObject metaData = new BasicDBObject(); 
         metaData.put("type", "video"); 
         ObjectId id = gridFsTemplate.store(
@@ -45,18 +45,18 @@ public class AudioService {
         if(upload == null) {
         	User user = userRepository.findById(userID).orElseThrow();
             Upload newUpload = new Upload(destination, user);
-            newUpload.getVideos().add(id.toString());
+            newUpload.getAudios().add(id.toString());
             uploadRepository.save(newUpload);
-            return newUpload;
+            return id.toString();
         }
         upload.getVideos().add(id.toString());
-        return upload;
+        return id.toString();
     }
 
-    public Video getVideo(String id) throws IllegalStateException, IOException { 
+    public Audio getAudio(String id) throws IllegalStateException, IOException { 
     	GridFSFile file = gridFsTemplate.findOne(new Query(Criteria.where("_id").is(id)));
-        Video video = new Video(); 
-        video.setStream(operations.getResource(file).getInputStream());
-        return video; 
+    	Audio Audio = new Audio(); 
+    	Audio.setStream(operations.getResource(file).getInputStream());
+        return Audio; 
     }
 }

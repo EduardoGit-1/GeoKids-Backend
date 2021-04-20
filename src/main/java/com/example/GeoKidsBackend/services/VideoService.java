@@ -36,7 +36,7 @@ public class VideoService {
 	
 	@Autowired
 	private UserRepository userRepository;
-    public Upload addVideo(Destination destination, String userID, MultipartFile file) throws IOException { 
+    public String addVideo(Destination destination, String userID, MultipartFile file) throws IOException { 
         DBObject metaData = new BasicDBObject(); 
         metaData.put("type", "video"); 
         ObjectId id = gridFsTemplate.store(
@@ -49,10 +49,10 @@ public class VideoService {
             Upload newUpload = new Upload(destination, user);
             newUpload.getVideos().add(id.toString());
             uploadRepository.save(newUpload);
-            return newUpload;
+            return id.toString();
         }
         upload.getVideos().add(id.toString());
-        return upload;
+        return id.toString();
     }
 
     public Video getVideo(String id) throws IllegalStateException, IOException { 
