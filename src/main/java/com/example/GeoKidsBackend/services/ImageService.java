@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.GeoKidsBackend.model.User;
+import com.example.GeoKidsBackend.model.GeoKid;
 import com.example.GeoKidsBackend.model.Tracking.Destination;
 import com.example.GeoKidsBackend.model.Upload.Image;
 import com.example.GeoKidsBackend.model.Upload.Upload;
 import com.example.GeoKidsBackend.repository.UploadRepository;
-import com.example.GeoKidsBackend.repository.UserRepository;
+import com.example.GeoKidsBackend.repository.GeoKidsRepository;
 
 @Service
 public class ImageService {
@@ -21,7 +21,7 @@ public class ImageService {
 	@Autowired
 	private UploadRepository uploadRepository;
 	@Autowired
-	private UserRepository userRepository;
+	private GeoKidsRepository geoKidsRepository;
 	
     public Image addImage(Destination destination, String userID, MultipartFile file) throws IOException { 
         Image image = new Image(); 
@@ -31,7 +31,7 @@ public class ImageService {
         Upload upload = uploadRepository.findByUserIdAndDestination_placeID(userID, destination.getPlaceID());
         
         if(upload == null) {
-        	User user = userRepository.findById(userID).orElseThrow();
+        	GeoKid user = geoKidsRepository.findById(userID).orElseThrow();
             Upload newUpload = new Upload(destination, user);
             newUpload.getImages().add(image);
             uploadRepository.save(newUpload);

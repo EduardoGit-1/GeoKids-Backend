@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.data.annotation.Id;
 
-import com.example.GeoKidsBackend.model.User;
+import com.example.GeoKidsBackend.model.GeoKid;
 import com.example.GeoKidsBackend.model.Tracking.Destination;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -16,7 +16,7 @@ public class Upload {
 	private Destination destination;
 	
 	@JsonIgnore
-	private User user;
+	private GeoKid user;
 	
 	private ArrayList<Image> images = new ArrayList<>();
 	private ArrayList<String> videos = new ArrayList<>();
@@ -25,7 +25,7 @@ public class Upload {
 	
 	private Upload() {}
 	
-	public Upload(Destination destination, User user) {
+	public Upload(Destination destination, GeoKid user) {
 		this.destination = destination;
 		this.user = user;
 
@@ -42,10 +42,10 @@ public class Upload {
 	public void setDestination(Destination destination) {
 		this.destination = destination;
 	}
-	public User getUser() {
+	public GeoKid getUser() {
 		return user;
 	}
-	public void setUser(User user) {
+	public void setUser(GeoKid user) {
 		this.user = user;
 	}
 	public ArrayList<Image> getImages() {

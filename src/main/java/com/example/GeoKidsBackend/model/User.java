@@ -1,22 +1,51 @@
 package com.example.GeoKidsBackend.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "users")
 public class User {
 
 	@Id
 	private String id;
 	
-	private String nickname;
-	private int characterID;
 	
-	public User() {}
+	private String firstName;
+	private String lastName;
 	
-	public User(String nickname, int characterID) {
-		this.nickname = nickname;
-		this.characterID = characterID;
+	@NotBlank
+	@Size(max = 50)
+	@Email
+	private String email;
+	
+	@NotBlank
+	@Size(max = 120)
+	private String password;
+  
+	private String city;
+	
+    @DBRef
+    private Set<Role> roles = new HashSet<>();
+    
+    public User() {
+    }
+
+	public User(String firstName, String lastName, @Email String email, String password, String city) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+		this.city = city;
 	}
-	
-	
+
 	public String getId() {
 		return id;
 	}
@@ -25,25 +54,63 @@ public class User {
 		this.id = id;
 	}
 
-	public String getNickname() {
-		return nickname;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public int getCharacterID() {
-		return characterID;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setCharacterID(int characterID) {
-		this.characterID = characterID;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	public String toString() {
-		return "Nickname: " + this.nickname + " CharacterID: " + this.characterID;
+	public String getEmail() {
+		return email;
 	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
+/*	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}*/
 	
 	
+    
+    
 }

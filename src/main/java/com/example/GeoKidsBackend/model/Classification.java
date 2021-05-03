@@ -2,18 +2,20 @@ package com.example.GeoKidsBackend.model;
 
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.example.GeoKidsBackend.model.Tracking.Destination;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@Document(collection = "classification")
 public class Classification {
 
 	@Id
 	private String id;
 	
 	@JsonIgnore
-	private User user;
+	private GeoKid user;
 	
 	private boolean isFavorite;
 	
@@ -27,7 +29,7 @@ public class Classification {
 
 	
 
-	public Classification(User user, boolean isFavorite, int stars, Destination destination, Object answers) {
+	public Classification(GeoKid user, boolean isFavorite, int stars, Destination destination, Object answers) {
 		this.user = user;
 		this.isFavorite = isFavorite;
 		this.stars = stars;
@@ -45,11 +47,11 @@ public class Classification {
 		this.id = id;
 	}
 
-	public User getUser() {
+	public GeoKid getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(GeoKid user) {
 		this.user = user;
 	}
 

@@ -12,12 +12,12 @@ import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.GeoKidsBackend.model.User;
+import com.example.GeoKidsBackend.model.GeoKid;
 import com.example.GeoKidsBackend.model.Tracking.Destination;
 import com.example.GeoKidsBackend.model.Upload.Upload;
 import com.example.GeoKidsBackend.model.Upload.Video;
 import com.example.GeoKidsBackend.repository.UploadRepository;
-import com.example.GeoKidsBackend.repository.UserRepository;
+import com.example.GeoKidsBackend.repository.GeoKidsRepository;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.client.gridfs.model.GridFSFile;
@@ -35,7 +35,8 @@ public class VideoService {
 	private UploadRepository uploadRepository;
 	
 	@Autowired
-	private UserRepository userRepository;
+	private GeoKidsRepository geoKidsRepository;
+	
     public String addVideo(Destination destination, String userID, MultipartFile file) throws IOException { 
         DBObject metaData = new BasicDBObject(); 
         metaData.put("type", "video"); 
@@ -45,7 +46,7 @@ public class VideoService {
         Upload upload = uploadRepository.findByUserIdAndDestination_placeID(userID, destination.getPlaceID());
         
         if(upload == null) {
-        	User user = userRepository.findById(userID).orElseThrow();
+        	GeoKid user = geoKidsRepository.findById(userID).orElseThrow();
             Upload newUpload = new Upload(destination, user);
             newUpload.getVideos().add(id.toString());
             uploadRepository.save(newUpload);

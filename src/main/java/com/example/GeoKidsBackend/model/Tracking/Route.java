@@ -2,7 +2,7 @@ package com.example.GeoKidsBackend.model.Tracking;
 
 import org.springframework.data.annotation.Id;
 
-import com.example.GeoKidsBackend.model.User;
+import com.example.GeoKidsBackend.model.GeoKid;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Route {
@@ -11,7 +11,7 @@ public class Route {
 	private String id;
 	
 	@JsonIgnore()
-	private User user;
+	private GeoKid user;
 	
 	private Origin origin;
 	private Destination destination;
@@ -20,7 +20,7 @@ public class Route {
 	
 	public Route() {}
 	
-	public Route(User user, Origin origin, Destination destination, float distance, float duration) {
+	public Route(GeoKid user, Origin origin, Destination destination, float distance, float duration) {
 		this.user = user;
 		this.origin = origin;
 		this.destination = destination;
@@ -29,11 +29,11 @@ public class Route {
 	}
 
 	
-	public User getUser() {
+	public GeoKid getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(GeoKid user) {
 		this.user = user;
 	}
 

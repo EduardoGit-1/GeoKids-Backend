@@ -35,7 +35,7 @@ import com.example.GeoKidsBackend.services.TextService;
 import com.example.GeoKidsBackend.services.VideoService;
 
 @RestController
-@RequestMapping("/api/upload")
+@RequestMapping("/api/geokids/upload")
 public class UploadController {
 
 	@Autowired

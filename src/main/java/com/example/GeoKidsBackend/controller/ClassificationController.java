@@ -11,25 +11,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.GeoKidsBackend.model.Classification;
-import com.example.GeoKidsBackend.model.User;
+import com.example.GeoKidsBackend.model.GeoKid;
 import com.example.GeoKidsBackend.payload.PostClassificationRequest;
 import com.example.GeoKidsBackend.repository.ClassificationRepository;
-import com.example.GeoKidsBackend.repository.UserRepository;
+import com.example.GeoKidsBackend.repository.GeoKidsRepository;
 
 @RestController
-@RequestMapping("/api/classification")
+@RequestMapping("/api/geokids/classification")
 public class ClassificationController {
 	@Autowired
 	ClassificationRepository classificationRepository;
 	
 	@Autowired
-	UserRepository userRepository;
+	GeoKidsRepository geoKidsRepository;
 	
 	@PostMapping("/saveClassification")
 	public ResponseEntity<?> setAsFavorite(@Valid @RequestBody PostClassificationRequest postFavoriteLocationRequest){
 		Classification c = classificationRepository.findByUserIdAndDestination_placeID(postFavoriteLocationRequest.getUserID(), postFavoriteLocationRequest.getDestination().getPlaceID());
 		if(c == null) {
-			User user = userRepository.findById(postFavoriteLocationRequest.getUserID()).orElseThrow();;
+			GeoKid user = geoKidsRepository.findById(postFavoriteLocationRequest.getUserID()).orElseThrow();;
 			Classification newC = new Classification(user, postFavoriteLocationRequest.getIsFavorite(), postFavoriteLocationRequest.getStars(), postFavoriteLocationRequest.getDestination(), postFavoriteLocationRequest.getAnswers());
 			classificationRepository.save(newC);
 			return ResponseEntity.ok().body(newC);
@@ -44,7 +44,7 @@ public class ClassificationController {
 	public ResponseEntity<?> saveOpinion(@Valid @RequestBody PostClassificationRequest postFavoriteLocationRequest){
 		Classification c = classificationRepository.findByUserIdAndDestination_placeID(postFavoriteLocationRequest.getUserID(), postFavoriteLocationRequest.getDestination().getPlaceID());
 		if(c == null) {
-			User user = userRepository.findById(postFavoriteLocationRequest.getUserID()).orElseThrow();;
+			GeoKid user = geoKidsRepository.findById(postFavoriteLocationRequest.getUserID()).orElseThrow();;
 			Classification newC = new Classification(user, postFavoriteLocationRequest.getIsFavorite(), postFavoriteLocationRequest.getStars(), postFavoriteLocationRequest.getDestination(), postFavoriteLocationRequest.getAnswers());
 			classificationRepository.save(newC);
 			return ResponseEntity.ok().body(newC);
