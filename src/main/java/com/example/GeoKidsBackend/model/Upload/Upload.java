@@ -18,10 +18,7 @@ public class Upload {
 	@JsonIgnore
 	private GeoKid user;
 	
-	private ArrayList<Image> images = new ArrayList<>();
-	private ArrayList<String> videos = new ArrayList<>();
-	private ArrayList<String> audios = new ArrayList<>(); 
-	private ArrayList<String> texts = new ArrayList<>();
+	private ArrayList<UploadData> uploads = new ArrayList<>();
 	
 	private Upload() {}
 	
@@ -48,7 +45,17 @@ public class Upload {
 	public void setUser(GeoKid user) {
 		this.user = user;
 	}
-	public ArrayList<Image> getImages() {
+
+	public ArrayList<UploadData> getUploads() {
+		return uploads;
+	}
+
+	public void setUploads(ArrayList<UploadData> uploads) {
+		this.uploads = uploads;
+	}
+
+	
+	/*public ArrayList<Image> getImages() {
 		return images;
 	}
 	public void setImages(ArrayList<Image> images) {
@@ -68,14 +75,18 @@ public class Upload {
 	public void setAudios(ArrayList<String> audios) {
 		this.audios = audios;
 	}
-
-	public ArrayList<String> getTexts() {
+		public ArrayList<String> getTexts() {
 		return texts;
 	}
 
 	public void setTexts(ArrayList<String> texts) {
 		this.texts = texts;
 	}
+	*/
+
+
+
+
 	
 	
 		

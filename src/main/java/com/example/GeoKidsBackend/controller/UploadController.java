@@ -58,10 +58,8 @@ public class UploadController {
 			@RequestParam("userID") String userID,@RequestParam("image") MultipartFile image, @RequestParam("latitude") float latitude,
 			@RequestParam("longitude") float longitude) throws IOException{
 				Destination destination = new Destination(designation, latitude, longitude, placeID);
-				Image newImage = imageService.addImage(destination, userID, image);
-				String base64 = "data:image/png;base64,";
-				String imageString = base64 + Base64.getEncoder().encodeToString(newImage.getImage().getData());
-				UploadPayloadResponse2 u = new UploadPayloadResponse2("image", imageString);
+				String newImage = imageService.addImage(destination, userID, image);
+				UploadPayloadResponse2 u = new UploadPayloadResponse2("image", newImage);
 				return u;
 				/*PostUploadResponse postUploadRes = new PostUploadResponse(destination);
 				ArrayList<String> images = new ArrayList<>();
@@ -75,7 +73,7 @@ public class UploadController {
 				return postUploadRes;*/
 	}
 	
-	@PostMapping("/image/getAll")
+	/*@PostMapping("/image/getAll")
 	public String getImages(@Valid @RequestBody PostClassificationRequest postClassificationRequest){
 		System.out.println("fui chamado");
 		Upload upload = uploadRepository.findByUserIdAndDestination_placeID(postClassificationRequest.getUserID(), postClassificationRequest.getDestination().getPlaceID());
@@ -85,7 +83,7 @@ public class UploadController {
 		//return data;
 		return imageString;
 		
-	}
+	}*/
 	
 	@PostMapping("/video/add")
 	public UploadPayloadResponse2 addVideo(@RequestParam("designation") String designation, @RequestParam("placeID") String placeID,
