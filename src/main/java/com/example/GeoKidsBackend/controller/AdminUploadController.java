@@ -5,11 +5,13 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.GroupOperation;
 import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
+import org.springframework.data.mongodb.core.aggregation.SortOperation;
 import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
 import org.springframework.data.mongodb.core.aggregation.UnwindOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -31,6 +33,7 @@ import com.example.GeoKidsBackend.model.Classification;
 import com.example.GeoKidsBackend.model.Upload.Upload;
 import com.example.GeoKidsBackend.payload.ClassificationAggregation;
 import com.example.GeoKidsBackend.payload.GetAllUploadsPayload;
+import com.example.GeoKidsBackend.payload.GetRecentUploadsPayload;
 import com.example.GeoKidsBackend.payload.UpdateUploadActivePayload;
 import com.example.GeoKidsBackend.repository.UploadRepository;
 import com.mongodb.BasicDBObject;
@@ -121,6 +124,24 @@ public class AdminUploadController {
 		//Aggregation uploadAggregation = Aggregation.newAggregation(Upload.class, Aggregation.group("destination").addToSet("uploads").as("uploads"));
 		AggregationResults<GetAllUploadsPayload> result = mongoTemplate.aggregate(uploadAggregation, "upload", GetAllUploadsPayload.class);
 		return result.getMappedResults();
+	}
+	
+	@GetMapping("/getRecentUploads")
+	@PreAuthorize("hasRole('ADMIN')")
+	public List<?> getRecentUploads(@RequestParam String city){
+		UnwindOperation unwindOperation = Aggregation.unwind("uploads");
+		SortOperation sortOperation = Aggregation.sort(Sort.by(Sort.Direction.DESC, "uploads.date"));
+		//GroupOperation groupOperation = Aggregation.group("destination").addToSet("uploads").as("uploads");
+		//ProjectionOperation projectionOperation = Aggregation.project("uploads").and("destination").previousOperation();
+	
+		//GroupOperation groupOperation = Aggregation.group("uploads").addToSet("destination").as("destination");
+		//ProjectionOperation projectionOperation = Aggregation.project("destination").and("uploads").previousOperation();
+		Aggregation uploadAggregation = Aggregation.newAggregation(Upload.class, unwindOperation,sortOperation);
+		System.out.print(uploadAggregation.toString());
+		AggregationResults<GetRecentUploadsPayload> result = mongoTemplate.aggregate(uploadAggregation, "upload", GetRecentUploadsPayload.class);
+		
+		return result.getMappedResults();
+		
 	}
     
 }
