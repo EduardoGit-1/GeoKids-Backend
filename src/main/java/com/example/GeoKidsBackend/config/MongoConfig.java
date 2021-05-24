@@ -21,7 +21,7 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
  
     @Override
     public MongoClient mongoClient() {
-        ConnectionString connectionString = new ConnectionString("mongodb://localhost:27017/GeoKidsDatabase");
+        ConnectionString connectionString = new ConnectionString("mongodb://admin:projetoptsi203@34.105.177.67:27017/GeoKidsDatabase?authSource=admin");
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
             .applyConnectionString(connectionString)
             .build();
